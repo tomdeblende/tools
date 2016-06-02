@@ -5,8 +5,6 @@ ec2 = boto3.resource('ec2')
 
 instances = ec2.instances.all()
 
-total = 0
-
 print "instance-id,instance name,application,environment"
 
 for i in instances:
