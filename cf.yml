@@ -1,0 +1,68 @@
+---
+
+- name: Deploy AWS environment for dev03
+  hosts: localhost
+  vars:
+    aws-env: dev03
+    aws-region: eu-central-1
+
+    BaseAMIID: ami-810eedee
+
+    TagBusinessOwner: Julian Hessels
+    TagBussinessUnit: Essent BE
+    TagCostCenter: Cost - Nova
+    TagEnvironment: dev03
+    TagExpirationDate:
+    TagFAMName: Aldrin Bonoo
+    TagSolutionID: Nova
+
+    DMZVpcId: vpc-72bf921b
+    VpcType: dmz
+
+    SteppingStoneSecurityGroup: sg-3db37d55
+    ManagementSecurityGroup: sg-dfbb72b7
+
+    KeyPairName: KeyPairDev03
+
+    DBSubnet1a: subnet-b94840d0
+    DBSubnet1b: subnet-e451729f
+    SubnetPublic1a: subnet-b04840d9
+    SubnetPublic1b: subnet-e051729b
+    SubnetPrivate1a: subnet-b94840d0
+    SubnetPrivate1b: subnet-e451729f
+
+    JbillingSecurityGroupName: JbillingSecurityGroupDev03
+    Jbilling01AvailabilityZone: eu-central-1a
+    Jbilling01InstanceType: m4.xlarge
+    Jbilling01Name: dev03-jbilling-01-1a
+    Jbilling01Xvda1Size: 8
+    Jbilling01Xvda1Type: gp2
+    Jbilling01SdfSize: 2
+    Jbilling01SdfType: gp2
+    Jbilling01SdgSize: 2
+    Jbilling01SdgType: gp2
+    Jbilling01SdhSize: 2
+    Jbilling01SdhType: gp2
+    Jbilling01SdiSize: 40
+    Jbilling01SdiType: gp2
+    Jbilling01SdjSize: 2
+    Jbilling01SdjType: gp2
+    Jbilling01SdkSize: 2
+    Jbilling01SdkType: gp2
+
+    DBJbillingSecurityGroupName: DBJbillingSecurityGroupDev03
+    DBJbillingName: dev03jbilling
+    DBJbillingInstanceIdentifier: dev03jbilling
+    DBJbillingAllocatedStorage: 20
+    DBJbillingStorageType: standard
+    DBJbillingBackupPeriod: 14
+    DBJbillingInstanceClass: db.m4.xlarge
+    DBJbillingMultiAZ: true
+    DBJbillingDatabaseEngine: postgres
+    DBJbillingDatabaseEngineVersion: 9.3.9
+    DBJbillingMasterUsername: Essent
+    DBJbillingMasterUserPassword: 1234qwer
+    DBJbillingMinorUpgrade: false
+
+  roles:
+    - aws-environment

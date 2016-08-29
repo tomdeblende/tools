@@ -1,0 +1,1 @@
+aws cloudformation update-stack --stack-name dev039 --template-body file:///cygdrive/d/Documents/GitHub/essent-platform-scripting/roles/aws-environment/files/cloudformation.json.template --parameters file:///home/Tom/git/tools/params.json --profile=essent
