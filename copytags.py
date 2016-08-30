@@ -3,8 +3,8 @@ import boto3
 import sys
 
 ec2 = boto3.resource('ec2')
-source_instance = ec2.Instance(str(sys.argv[0]))
-target_instance = ec2.Instance(str(sys.argv[1]))
+source_instance = ec2.Instance('i-' + str(sys.argv[1]))
+target_instance = ec2.Instance('i-' + str(sys.argv[2]))
 
 
 if source_instance.tags is not None:
