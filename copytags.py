@@ -10,7 +10,7 @@ target_instance = ec2.Instance(str(sys.argv[1]))
 if source_instance.tags is not None:
     try:
         for tag in source_instance.tags:
-            if tag['Key'] != 'Name':
+            if tag['Key'] != 'Name' and tag['Key'] != 'Customer Name':
                 target_instance.create_tags(
                     DryRun=False,
                     Tags=[
