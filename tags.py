@@ -11,8 +11,14 @@ for volume in volumes:
             try:
                 instanceid = volume.attachments[0]['InstanceId']
                 instance = ec2.Instance(instanceid)
-                volumenametag = [tag['Value'] for tag in volume.tags if tag['Key'] == 'Name'][0]
-                instancenametag = [tag['Value'] for tag in instance.tags if tag['Key'] == 'Name'][0]
+                if volume.tags != 'None':
+                    volumenametag = [tag['Value'] for tag in volume.tags if tag['Key'] == 'Name'][0]
+                else:
+                    volumenametag = ''
+                if instance.tags != 'None':
+                    instancenametag = [tag['Value'] for tag in instance.tags if tag['Key'] == 'Name'][0]
+                else:
+                    instancenametag = ''
                 volumedevice = volume.attachments[0]['Device'].replace("/dev/", "")
                 nametag = instancenametag + "-" + volumedevice
                 if volumenametag != nametag:
