@@ -1,1 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
+.idea/inspectionProfiles/
+.params.json.swp
+cf.yml
+deploy
+params.json
