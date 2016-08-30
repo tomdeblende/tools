@@ -29,8 +29,8 @@ for volume in volumes:
                 else:
                     print('Skipping: Name Tag of {} on {} was already set to {}'.format(volumedevice, instancenametag, nametag))
             except Exception, e:
-                print ('Failed to set tags on {}, retrying in 5 seconds'.format(volume))
                 print ('Error message: {}'.format(e))
+                print ('Failed to set tags on {}, retrying in 5 seconds'.format(volume))
                 time.sleep(5)
             else:
                 break
