@@ -11,11 +11,11 @@ for volume in volumes:
             try:
                 instanceid = volume.attachments[0]['InstanceId']
                 instance = ec2.Instance(instanceid)
-                if volume.tags != 'None':
+                if volume.tags is not None:
                     volumenametag = [tag['Value'] for tag in volume.tags if tag['Key'] == 'Name'][0]
                 else:
                     volumenametag = ''
-                if instance.tags != 'None':
+                if instance.tags is not None:
                     instancenametag = [tag['Value'] for tag in instance.tags if tag['Key'] == 'Name'][0]
                 else:
                     instancenametag = ''
