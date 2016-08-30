@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import boto3
-import time
 import sys
 
 ec2 = boto3.resource('ec2')
@@ -23,4 +22,3 @@ if source_instance.tags is not None:
                 )
     except Exception, e:
         print ('Error message: {}'.format(e))
-        time.sleep(5)
