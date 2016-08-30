@@ -6,7 +6,7 @@ ec2 = boto3.resource('ec2')
 volumes = ec2.volumes.all()
 
 for volume in volumes:
-    if volume.state == 'attached':
+    if volume.state == 'in-use':
         for x in range(5):
             try:
                 instanceid = volume.attachments[0]['InstanceId']
