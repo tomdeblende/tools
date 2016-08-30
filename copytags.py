@@ -11,7 +11,15 @@ if source_instance.tags is not None:
     try:
         for tag in source_instance.tags:
             if tag['Key'] != 'Name':
-                target_instance.create_tags(Tags=tag)
+                target_instance.create_tags(
+                    DryRun=False,
+                    Tags=[
+                        {
+                            'Key': tag['Key'],
+                            'Value': tag['Value']
+                        }
+                    ]
+                )
     except Exception, e:
         print ('Error message: {}'.format(e))
         time.sleep(5)
