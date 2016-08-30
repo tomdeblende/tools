@@ -3,32 +3,33 @@ import boto3
 import time
 
 ec2 = boto3.resource('ec2')
-
 volumes = ec2.volumes.all()
 
-total = 0
-
-
-for v in volumes: 
+for volume in volumes: 
   for x in range(5):
     try:
-      iid = v.attachments[0]['InstanceId']
-      i = ec2.Instance(iid)
-      itn = [tag['Value'] for tag in i.tags if tag['Key'] == 'Name'][0]
-      vd = v.attachments[0]['Device'].replace("/dev/", "-")
-      tn = itn + vd
-      print "Setting Name Tag of " + str(v) + " on " + itn + " to " + tn
-      t = v.create_tags(
-        DryRun=False,
-        Tags=[
-          {
-            'Key': 'Name',
-            'Value': tn
-          }
-        ]
-      )
-    except:
-      print "Failed to set tags, retrying in 5 seconds"
+      instanceid = volume.attachments[0]['InstanceId']
+      instance = ec2.Instance(instanceid)
+      volumenametag = [tag['Value'] for tag in volume.tags if tag['Key'] == 'Name'][0]
+      instancenametag = [tag['Value'] for tag in instance.tags if tag['Key'] == 'Name'][0]
+      volumedevice = volume.attachments[0]['Device'].replace("/dev/", "")
+      nametag = instancenametag + "-" + volumedevice
+      if volumenametag != nametag:
+        print('Setting Name Tag of {} on {} to {}'.format(volumedevice, instancenametag, nametag))
+        tag = volume.create_tags(
+          DryRun=False,
+          Tags=[
+            {
+              'Key': 'Name',
+              'Value': nametag
+            }
+          ]
+        )
+      else:
+        print('Skipping: Name Tag of {} on {} was already set to {}'.format(volumedevice, instancenametag, nametag))
+    except Exception, e:
+      print ('Failed to set tags on {}, retrying in 5 seconds'.format(volume))
+      print ('Error message: {}'.format(e))
       time.sleep(5)
     else:
       break
