@@ -11,6 +11,7 @@ if source_instance.tags is not None:
     try:
         for tag in source_instance.tags:
             if tag['Key'] != 'Name' and tag['Key'] != 'Customer Name':
+                print ('Copying Tag Value {} to Key {}.'.format(tag['Value'], tag['Key']))
                 target_instance.create_tags(
                     DryRun=False,
                     Tags=[
