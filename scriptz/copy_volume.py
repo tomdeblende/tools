@@ -86,7 +86,7 @@ def main():
     if args.force is True:
         print "Detaching volume %s on %s if present" % (args.new_volume, args.destination_instance_id)
 
-        volumes = conn.get_all_volumes(filters={'attachment.instance-id': args.instance_id,
+        volumes = conn.get_all_volumes(filters={'attachment.instance-id': args.destination_instance_id,
                                                 'attachment.device': args.new_volume})
         if len(volumes) == 1:
             old_volume = volumes[0]
