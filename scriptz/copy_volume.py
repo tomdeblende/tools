@@ -58,6 +58,11 @@ def main():
 
     snap = code_volume.create_snapshot(snapshot_description(code_volume, args.instance_id))
 
+    volumeapptag = ''
+
+    if 'Name' in code_volume.tags:
+        volumeapptag = code_volume.tags['application']
+
     snapshots = conn.get_all_snapshots(owner='self', snapshot_ids=[snap.id])
     if len(snapshots) == 1:
         snapshot = snapshots[0]
@@ -74,6 +79,8 @@ def main():
     print "Creating volume from snapshot %s" % snap.id
 
     new_volume = conn.create_volume(snap.volume_size, az, snapshot=snapshot, volume_type=args.type)
+
+    new_volume.add_tag("application", volumeapptag)
 
     while new_volume.status != 'available':
         new_volume.update()
