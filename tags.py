@@ -13,6 +13,8 @@ for volume in volumes:
                 instance = ec2.Instance(instanceid)
                 if volume.tags is not None:
                     volumenametag = [tag['Value'] for tag in volume.tags if tag['Key'] == 'Name'][0]
+                    volumeapptag = [tag['Value'] for tag in volume.tags if tag['Key'] == 'application'][0]
+                    print volumeapptag
                 else:
                     volumenametag = ''
                 if instance.tags is not None:
