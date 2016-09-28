@@ -4,6 +4,7 @@ import boto.ec2
 import boto.utils
 import argparse
 import time
+import sys
 
 
 def parsed_args():
@@ -46,6 +47,12 @@ def main():
     az = target_instance.placement
 
     vols = conn.get_all_volumes(filters={'attachment.instance-id': args.instance_id})
+    target_vols = conn.get_all_volumes(filters={'attachment.instance-id': args.destination_instance_id})
+
+    matches = [x for x in target_vols if x.attach_data.device == args.new_volume]
+
+    if len(matches) == 1 and not args.force:
+        sys.exit("Target volume is already present. Use --force or -f to force a detach.")
 
     matches = [x for x in vols if x.attach_data.device == args.volume]
 
