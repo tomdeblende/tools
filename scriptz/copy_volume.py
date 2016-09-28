@@ -35,12 +35,18 @@ def parsed_args():
                         help="If you add this, the target volume will be wiped away!",
                         action='store_true',
                         default=False)
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(1)
     return parser.parse_args()
 
 
 def main():
     args = parsed_args()
     conn = boto.ec2.connect_to_region(args.region)
+
+    if args.wipe and not args.force:
+        sys.exit("You cannot use --wipe or -w without --force or -f.")
 
     reservations = conn.get_all_instances(instance_ids=[args.destination_instance_id])
     target_instance = reservations[0].instances[0]
